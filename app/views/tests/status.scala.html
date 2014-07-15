@@ -1,0 +1,30 @@
+@(uptime: Long, db: Long)
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>Cloudpod Status</title>
+    </head>
+    <body>
+        <h1>Current Status</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Uptime</td>
+                    <td>@uptime</td>
+                </tr>
+                <tr>
+                    <td>SELECT 2 + 2 = </td>
+                    <td>@db</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -5,7 +5,7 @@ Formatting
 ==========
 
   * Keep lines under 80 characters long.
-  * indent code with 2 spaces, no tabs.
+  * indent code with 4 spaces, no tabs.
   * closure parameter lists on same line if under 80 chars.
   * When closing multi-line braces, parens and quotes use a separate line.
     * Otherwise follow the official Scala style guide[1]

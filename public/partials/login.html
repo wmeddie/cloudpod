@@ -1,0 +1,203 @@
+<style>
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #eee;
+    }
+
+    .form-signin {
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+    .form-signin .form-signin-heading,
+    .form-signin .checkbox {
+        margin-bottom: 10px;
+    }
+
+    .form-signin .checkbox {
+        font-weight: normal;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .form-signin input[name="confirmation"] {
+        margin-top: -1px;
+    }
+
+    .form-signup {
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+    .form-signup .form-signin-heading,
+    .form-signup .checkbox {
+        margin-bottom: 10px;
+    }
+
+    .form-signin .checkbox {
+        font-weight: normal;
+    }
+
+    .form-signup .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .form-signup .form-control:focus {
+        z-index: 2;
+    }
+    .form-signup input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signup input[type="password"] {
+        margin-bottom: -1px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signup input[name="confirmation"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+</style>
+<div class="panel panel-default">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-1">
+            <form class="form-signin" role="form">
+                <h2 class="form-signin-heading">Sign in</h2>
+                <input
+                        type="email"
+                        class="form-control"
+                        placeholder="Email address"
+                        name="email"
+                        ng-model="login.loginEmail"
+                        required
+                        autofocus>
+                <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Password"
+                        name="password"
+                        ng-model="login.loginPassword"
+                        required>
+                <div class="checkbox">
+                    <label>
+                        <input
+                                type="checkbox"
+                                ng-model="login.loginRemember"
+                                value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button
+                        class="btn btn-lg btn-primary btn-block"
+                        ng-click="login.doLogin()"
+                        type="submit">
+                    Sign in
+                </button>
+            </form>
+        </div>
+
+        <div
+                class="col-md-1 col-md-offset-1"
+                style="border-left:1px solid #eee; height: 300px;">
+        </div>
+
+        <div class="col-md-4 ">
+            <form class="form-signup" role="form">
+                <h2 class="form-signup-heading">Or sign up</h2>
+                <input
+                        type="email"
+                        class="form-control"
+                        placeholder="Email address"
+                        name="email"
+                        ng-model="login.signUpEmail"
+                        required>
+                <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Password"
+                        name="password"
+                        ng-model="login.signUpPassword"
+                        required>
+                <input
+                        type="password"
+                        class="form-control"
+                        placeholder="Confirm"
+                        name="confirmation"
+                        ng-model="login.signUpConfirmation"
+                        required>
+                <div class="checkbox">
+                    <label>
+                        <input
+                                type="checkbox"
+                                ng-model="login.signUpRembmer"
+                                value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button
+                        class="btn btn-lg btn-primary btn-block"
+                        ng-click="login.doSignUp()"
+                        type="submit">
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <!-- TODO
+        <div class="col-md-4 col-md-offset-1">
+            <span id="signinButton">
+                <span
+                    class="g-signin"
+                    data-callback="signinCallback"
+                    data-clientid="CLIENT_ID"
+                    data-cookiepolicy="single_host_origin"
+                    data-requestvisibleactions="http://schema.org/AddAction"
+                    data-scope="https://www.googleapis.com/auth/plus.login">
+                </span>
+            </span>
+
+            <div
+              class="fb-login-button"
+              data-max-rows="1"
+              data-size="xlarge"
+              data-show-faces="false"
+              data-auto-logout-link="true">
+            </div>
+        </div>
+        -->
+    </div>
+</div>

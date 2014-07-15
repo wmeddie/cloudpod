@@ -8,7 +8,7 @@
 # This must be changed for production, but we recommend not changing it in this file.
 #
 # See http://www.playframework.com/documentation/latest/ApplicationSecret for more details.
-application.secret=";WDXMNI?]:w2WehPZim5Ve9LvMvQfnG7AxK>nki9wGd;g[<ghqurRgU]KsrxD:7<"
+application.secret="changeme"
 
 # The application languages
 # ~~~~~

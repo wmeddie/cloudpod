@@ -1,9 +1,7 @@
+import org.junit.runner._
 import org.specs2.mutable._
 import org.specs2.runner._
-import org.junit.runner._
-
 import play.api.test._
-import play.api.test.Helpers._
 
 /**
  * add your integration spec here.
@@ -12,13 +10,34 @@ import play.api.test.Helpers._
 @RunWith(classOf[JUnitRunner])
 class IntegrationSpec extends Specification {
 
-  "Application" should {
+    "Jasmin Tests" should {
+        "pass from within a browser" in new WithBrowser {
+            browser.goTo("http://localhost:" + port + "/tests/js")
 
-    "work from within a browser" in new WithBrowser {
-
-      browser.goTo("http://localhost:" + port)
-
-      browser.pageSource must contain("Your new application is ready.")
+            eventually {
+                browser.findFirst("span.passed").getText must
+                        contain("0 failures")
+            }
+        }
     }
-  }
+
+    "The login page" should {
+        "be shown when accessing /" in new WithBrowser {
+            browser.goTo("http://localhost:" + port + "/")
+
+            eventually {
+                browser.pageSource must contain("Sign in")
+                browser.pageSource must contain("Sign up")
+            }
+        }
+
+        "be shown when accessing an invalid url fragment" in new WithBrowser {
+            browser.goTo("http://localhost:" + port + "/#/foo")
+
+            eventually {
+                browser.pageSource must contain("Sign in")
+                browser.pageSource must contain("Sign up")
+            }
+        }
+    }
 }

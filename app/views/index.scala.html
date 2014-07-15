@@ -1,7 +1,10 @@
-@(message: String)
+@()
 
-@main("Welcome to Play") {
+@import play.api.Play.current
+@import play.api.Play
 
-    @play20.welcome(message)
-
+@main("Cloudpod") {
+    <div ng-app="app">
+        <ng-view></ng-view>
+    </div>
 }

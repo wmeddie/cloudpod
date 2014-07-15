@@ -1,0 +1,46 @@
+@()
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Jasmine Spec Runner v2.0.0</title>
+
+        <link
+            rel="shortcut icon"
+            type="image/png"
+            href='@routes.Assets.at("lib/jasmine/jasmine_favicon.png")'>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href='@routes.Assets.at("lib/jasmine/jasmine.css")'>
+
+        <script
+            src='@routes.Assets.at("lib/jasmine/jasmine.js")'></script>
+        <script
+            src='@routes.Assets.at("lib/jasmine/jasmine-html.js")'>
+        </script>
+        <script src='@routes.Assets.at("lib/jasmine/boot.js")'></script>
+
+        <!-- include source files here... -->
+        <script
+            src='@routes.Assets.at("lib/angularjs/angular.js")'></script>
+        <script
+            src='@routes.Assets.at("lib/angularjs/angular-route.js")'></script>
+
+        <script src='@routes.Assets.at("javascripts/app.js")'></script>
+
+        <!-- include spec here... -->
+        <script>
+            describe('Login', function () {
+                it('Should have a login controller', function () {
+                    expect(LoginController).toBeDefined();
+                    //expect(undefined).toBeDefined();
+                });
+            });
+        </script>
+
+    </head>
+
+    <body>
+    </body>
+</html>
