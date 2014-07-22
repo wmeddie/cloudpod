@@ -10,11 +10,23 @@ scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
     jdbc,
-    anorm,
     cache,
     ws,
     "org.webjars" %% "webjars-play" % "2.3.0",
     "org.webjars" % "bootstrap" % "3.2.0",
     "org.webjars" % "angularjs" % "1.2.19",
-    "org.webjars" % "jasmine" % "2.0.0"
+    "org.webjars" % "jasmine" % "2.0.0",
+    "io.github.nremond" %% "pbkdf2-scala" % "0.4",
+    "com.h2database" %  "h2" % "1.3.176",
+    "mysql" % "mysql-connector-java" % "5.1.21",
+    "org.scalikejdbc" %% "scalikejdbc-play-plugin" % "2.3.+",
+    "org.skinny-framework" %% "skinny-orm" % "1.1.8"
 )
+
+initialCommands := """
+import scalikejdbc._
+import skinny.orm._, feature._
+import org.joda.time._
+skinny.DBSettings.initialize()
+implicit val session = AutoSession
+"""

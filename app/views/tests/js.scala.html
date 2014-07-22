@@ -36,6 +36,17 @@
                     expect(LoginController).toBeDefined();
                     //expect(undefined).toBeDefined();
                 });
+
+                it('Should require both e-mail and password fields to log in',
+                    inject([
+                        'LoginController',
+                        function (login) {
+                            login.doLogIn();
+
+                            expect(login.loginError).toBeTruthy();
+                        }
+                    ])
+                );
             });
         </script>
 

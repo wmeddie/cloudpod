@@ -10,13 +10,8 @@
         margin: 0 auto;
     }
 
-    .form-signin .form-signin-heading,
-    .form-signin .checkbox {
+    .form-signin .form-signin-heading {
         margin-bottom: 10px;
-    }
-
-    .form-signin .checkbox {
-        font-weight: normal;
     }
 
     .form-signin .form-control {
@@ -40,6 +35,7 @@
     .form-signin input[type="password"] {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
+        margin-bottom: 10px;
     }
 
     .form-signin input[name="confirmation"] {
@@ -51,13 +47,8 @@
         margin: 0 auto;
     }
 
-    .form-signup .form-signin-heading,
-    .form-signup .checkbox {
+    .form-signup .form-signin-heading {
         margin-bottom: 10px;
-    }
-
-    .form-signin .checkbox {
-        font-weight: normal;
     }
 
     .form-signup .form-control {
@@ -91,14 +82,20 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
-
 </style>
 <div class="panel panel-default">
     <div class="row">
         <div class="col-md-4 col-md-offset-1">
-            <form class="form-signin" role="form">
+            <form class="form-signin" name="login.loginForm">
                 <h2 class="form-signin-heading">Sign in</h2>
-                <input
+                <div class="panel panel-danger" ng-show="login.loginError">
+                    <div class="panel-heading">
+                        There was an error:
+                    </div>
+                    <div class="panel-body">
+                        {{login.loginError}}
+                    </div>
+                </div>                <input
                         type="email"
                         class="form-control"
                         placeholder="Email address"
@@ -113,14 +110,6 @@
                         name="password"
                         ng-model="login.loginPassword"
                         required>
-                <div class="checkbox">
-                    <label>
-                        <input
-                                type="checkbox"
-                                ng-model="login.loginRemember"
-                                value="remember-me"> Remember me
-                    </label>
-                </div>
                 <button
                         class="btn btn-lg btn-primary btn-block"
                         ng-click="login.doLogin()"
@@ -136,8 +125,16 @@
         </div>
 
         <div class="col-md-4 ">
-            <form class="form-signup" role="form">
+            <form class="form-signup" name="login.signUpForm">
                 <h2 class="form-signup-heading">Or sign up</h2>
+                <div class="panel panel-danger" ng-show="login.signUpError">
+                    <div class="panel-heading">
+                        There was an error:
+                    </div>
+                    <div class="panel-body">
+                        {{login.signUpError}}
+                    </div>
+                </div>
                 <input
                         type="email"
                         class="form-control"
@@ -159,14 +156,6 @@
                         name="confirmation"
                         ng-model="login.signUpConfirmation"
                         required>
-                <div class="checkbox">
-                    <label>
-                        <input
-                                type="checkbox"
-                                ng-model="login.signUpRembmer"
-                                value="remember-me"> Remember me
-                    </label>
-                </div>
                 <button
                         class="btn btn-lg btn-primary btn-block"
                         ng-click="login.doSignUp()"

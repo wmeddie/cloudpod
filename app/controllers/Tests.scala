@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.Play
-import play.api.db.DB
-import anorm._
 import play.api.libs.concurrent.Akka
 import play.api.mvc.{Controller, Action}
+import scalikejdbc._
+
 
 /**
  * A controller exposing non-application actions.
@@ -22,13 +22,13 @@ object Tests extends Controller {
 
     def status = Action {
         val actorUptime = Akka.system.uptime
-        val db = DB.withConnection { implicit conn =>
-            SQL"""
-                SELECT 2 + 2 AS result
-            """.as(SqlParser.long("result").single)
+        val db = DB.readOnly { implicit conn =>
+            sql"SELECT 2 + 2 AS result"
+                .map(rs => rs.long("result"))
+                .single()
+                .apply()
         }
 
-        Ok(views.html.tests.status(actorUptime, db))
+        Ok(views.html.tests.status(actorUptime, db.get))
     }
-
 }

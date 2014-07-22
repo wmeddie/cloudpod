@@ -10,13 +10,22 @@ import play.api.test._
 @RunWith(classOf[JUnitRunner])
 class IntegrationSpec extends Specification {
 
+    private def loginPageTests(browser: TestBrowser) = {
+        val heading1 = browser.findFirst(".form-signin-heading").getText
+        val heading2 = browser.findFirst(".form-signup-heading").getText
+
+        heading1 must contain("Sign in")
+        heading2 must contain("Sign up")
+    }
+
     "Jasmin Tests" should {
         "pass from within a browser" in new WithBrowser {
             browser.goTo("http://localhost:" + port + "/tests/js")
 
             eventually {
-                browser.findFirst("span.passed").getText must
-                        contain("0 failures")
+                val res = browser.findFirst("span.passed").getText
+
+                res must contain("0 failures")
             }
         }
     }
@@ -25,18 +34,24 @@ class IntegrationSpec extends Specification {
         "be shown when accessing /" in new WithBrowser {
             browser.goTo("http://localhost:" + port + "/")
 
+            browser.waitUntil {
+                !browser.find(".form-signin").isEmpty
+            }
+
             eventually {
-                browser.pageSource must contain("Sign in")
-                browser.pageSource must contain("Sign up")
+                loginPageTests(browser)
             }
         }
 
         "be shown when accessing an invalid url fragment" in new WithBrowser {
             browser.goTo("http://localhost:" + port + "/#/foo")
 
+            browser.waitUntil {
+                !browser.find(".form-signin").isEmpty
+            }
+
             eventually {
-                browser.pageSource must contain("Sign in")
-                browser.pageSource must contain("Sign up")
+                loginPageTests(browser)
             }
         }
     }
