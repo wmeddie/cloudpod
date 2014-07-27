@@ -13,10 +13,10 @@ app.config(['$routeProvider', function ($routeProvider: ng.route.IRouteProvider)
                 controllerAs: 'login',
                 templateUrl: '/assets/partials/login.html'
         })
-        .when('/jams', {
-                controller: 'JamsController',
-                controllerAs: 'jams',
-                templateUrl: '/assets/partials/jams.html'
+        .when('/player', {
+                controller: 'PlayerController',
+                controllerAs: 'player',
+                templateUrl: '/assets/partials/player.html'
         })
         .otherwise('/');
 }]);
@@ -127,7 +127,7 @@ class LoginController {
             this.session.userId = data.userId;
             this.session.email = this.loginEmail;
 
-            this.$location.path('/jams');
+            this.$location.path('/player');
         }).error((data: any, status: number) => {
             if (status < 500) {
                 this.loginError = 'Invalid email or password combination.';
@@ -159,7 +159,7 @@ class LoginController {
             this.session.userId = data.userId;
             this.session.email = this.signUpEmail;
 
-            this.$location.path('/jams');
+            this.$location.path('/player');
         }).error((data: any, status: number) => {
             if (status < 500) {
                 this.signUpError = 'A user with that e-mail exists.';
@@ -173,7 +173,7 @@ class LoginController {
 /**
  * Controller for the user's Jam list page.
  */
-class JamController {
+class PlayerController {
     constructor(private $http: ng.IHttpService,
                 private session: CloudpodSessionService) {
     }
