@@ -114,6 +114,7 @@ class LoginController {
      */
     doLogin() {
         if (this.loginForm.$invalid) {
+            this.loginError = 'All fields are required.';
             return;
         } else {
             this.loginError = '';
@@ -171,10 +172,94 @@ class LoginController {
 }
 
 /**
- * Controller for the user's Jam list page.
+ * Data for enqueued tracks.
  */
-class PlayerController {
-    constructor(private $http: ng.IHttpService,
-                private session: CloudpodSessionService) {
+class Song {
+    constructor(public title: string,
+                public artist: string,
+                public album: string,
+                public length: number,
+                public src: string) {
     }
 }
+
+/**
+ * The 'not playing' song.
+ * @type {Song}
+ */
+var nilSong = new Song("Not Playing", "Pick a jam below", "", 0, "");
+
+/**
+ * Data for the Jam session list.
+ */
+class JamSession {
+    constructor(public name: string,
+                public spectators: number) {
+    }
+}
+
+/**
+ * Controller for the player page.
+ */
+class PlayerController {
+    private playerEl: HTMLAudioElement;
+
+    /** playing/stopped state (should change play button to pause.) */
+    playing: boolean;
+    /** Current playlist */
+    songs: Array<Song>;
+    /** List of Jams the user is invited to */
+    jams: Array<JamSession>;
+    /** Selected Jam */
+    activeJam: JamSession;
+    /** Currently playing song. */
+    currentSong: Song;
+    /** Scrubber position (0 - 100) */
+    currentPosition: number;
+
+    constructor(private $http: ng.IHttpService,
+                private session: CloudpodSessionService) {
+        this.playing = false;
+        this.songs = [];
+        this.jams = [];
+        this.activeJam = null;
+        this.currentSong = nilSong;
+        this.currentPosition = 0;
+    }
+
+    /**
+     * Log user out and redirect to login page.
+     */
+    doLogout() {
+        alert("TODO Logout");
+    }
+
+    /**
+     * Upload the dropped file to the Library and Enqueue if successful.
+     */
+    fileDropped(file: File) {
+        alert("TODO File dropped");
+    }
+
+    /**
+     * Send a start player event to the server.
+     */
+    play() {
+        alert("TODO Play");
+    }
+
+    /**
+     * Send a skip vote to the server.
+     */
+    skip() {
+        alert("TODO Skip");
+    }
+
+    /**
+     * Display a Jam creation form.
+     */
+    createJam() {
+        alert("TODO Create Jam");
+    }
+}
+

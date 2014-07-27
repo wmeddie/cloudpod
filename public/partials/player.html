@@ -5,10 +5,21 @@
             <li>
                 <div class="text-center navbar-form">
                     <div class="btn-group navbar-btn">
-                        <button type="button" class="btn btn-default" disabled>
-                            <span class="glyphicon glyphicon-play"></span>
+                        <button
+                                type="button"
+                                class="btn btn-default"
+                                ng-click="player.play()"
+                                ng-disabled="player.activeJam == null">
+                            <span class="glyphicon glyphicon-play"
+                                  ng-show="!player.playing"></span>
+                            <span class="glyphicon glyphicon-pause"
+                                  ng-show="player.playing"></span>
                         </button>
-                        <button type="button" class="btn btn-default" disabled>
+                        <button
+                                type="button"
+                                class="btn btn-default"
+                                ng-click="player.skip()"
+                                ng-disabled="player.activeJam == null">
                             <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
                     </div>
@@ -16,14 +27,14 @@
             </li>
             <li>
                 <div class="navbar-form">
-                    <h4>Not Playing</h4>
-                    <h5>Pick a jam below</h5>
+                    <h4>{{ player.currentSong.title }}</h4>
+                    <h5>{{ player.currentSong.artist }}</h5>
                 </div>
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li>
-                <a href="#">Log out</a>
+                <a href="" ng-click="player.doLogout()">Log out</a>
             </li>
         </ul>
     </div>
@@ -33,17 +44,16 @@
     <div class="row">
 
         <div class="col-md-3 list-group sidebar">
-            <a href="#" class="list-group-item active">
-                HQ <span class="badge">2</span>
-            </a>
-            <a href="#" class="list-group-item">
-                Reception <span class="badge">1</span>
-            </a>
-            <a href="#" class="list-group-item">
-                Metal <span class="badge">0</span>
-            </a>
-            <a href="#" class="list-group-item">
-                80s <span class="badge">0</span>
+            <a href=""
+               class="list-group-item"
+               ng-repeat="jam in player.jams"
+               ng-class="{active: player.activeJam == jam}">
+                <span>
+                    {{ jam.name }}
+                </span>
+                <span class="badge">
+                    {{ jam.spectators }}
+                </span>
             </a>
             <a href="#" class="list-group-item text-center">
                 <span class="glyphicon glyphicon-plus"></span>New

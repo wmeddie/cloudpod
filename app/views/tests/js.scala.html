@@ -26,11 +26,25 @@
             src='@routes.Assets.at("lib/angularjs/angular.js")'></script>
         <script
             src='@routes.Assets.at("lib/angularjs/angular-route.js")'></script>
+        <script
+            src='@routes.Assets.at("lib/angularjs/angular-mocks.js")'></script>
 
         <script src='@routes.Assets.at("javascripts/app.js")'></script>
 
         <!-- include spec here... -->
         <script>
+            function MockStorage() {
+                this.state = {};
+            }
+
+            MockStorage.prototype.getItem = function (key) {
+                return this.state[key];
+            };
+
+            MockStorage.prototype.setItem = function (key, value) {
+                this.state[key] = value;
+            };
+
             describe('Login', function () {
                 it('Should have a login controller', function () {
                     expect(LoginController).toBeDefined();
@@ -38,16 +52,58 @@
                 });
 
                 it('Should require both e-mail and password fields to log in',
-                    inject([
-                        'LoginController',
-                        function (login) {
-                            login.doLogIn();
+                    function () {
+                        inject(function ($controller,
+                                         $rootScope) {
 
+                            var mockStorage = new MockStorage();
+                            var scope = $rootScope.$new();
+                            var login = $controller('LoginController', {
+                                $scope: scope,
+                                session: new CloudpodSessionService(mockStorage)
+                            });
+                            login.loginForm = {
+                                $invalid: true
+                            };
+
+                            login.doLogin();
                             expect(login.loginError).toBeTruthy();
-                        }
-                    ])
+                        });
+                    }
                 );
             });
+
+            describe('Player', function () {
+                var player;
+                beforeEach(inject(function ($controller, $rootScope) {
+
+                    var storage = new MockStorage();
+                    var scope = $rootScope.$new();
+
+                    player = $controller('PlayerController', {
+                        $scope: scope,
+                        session: new CloudpodSessionService(storage)
+                    });
+                }));
+
+                it('Should have a player controller', function () {
+                    expect(PlayerController).toBeDefined();
+                    expect(player ).toBeDefined();
+                });
+
+                it('Should start displaying helpful information to the user',
+                    function () {
+                        expect(player.currentSong).toBeDefined();
+                        expect(player.currentSong.title).toBe('Not Playing');
+                        expect(player.currentSong.artist).toBe(
+                            'Pick a jam below'
+                        );
+
+                        expect(player.songs.length).toBe(0);
+                    }
+                );
+            });
+
         </script>
 
     </head>
