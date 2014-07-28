@@ -23,7 +23,8 @@ libraryDependencies ++= Seq(
     "org.scalikejdbc" %% "scalikejdbc-play-plugin" % "2.3.+",
     "org.skinny-framework" %% "skinny-orm" % "1.1.8",
     "com.github.seratch" %% "awscala" % "0.2.+",
-    "com.mpatric" % "mp3agic" % "0.8.2"
+    "com.mpatric" % "mp3agic" % "0.8.2",
+    "com.typesafe.akka" %% "akka-testkit" % "2.3.3"
 )
 
 initialCommands := """
