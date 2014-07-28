@@ -4,7 +4,7 @@
  * Main Application module for Cloudpod.
  * @type {IModule}
  */
-var app = angular.module("app", ['ngRoute']);
+var app = angular.module("app", ['ngRoute', 'angularFileUpload']);
 
 app.config(['$routeProvider', function ($routeProvider: ng.route.IRouteProvider) {
     $routeProvider
@@ -218,7 +218,8 @@ class PlayerController {
     currentPosition: number;
 
     constructor(private $http: ng.IHttpService,
-                private session: CloudpodSessionService) {
+                private session: CloudpodSessionService,
+                private $upload: any) {
         this.playing = false;
         this.songs = [];
         this.jams = [];
@@ -237,8 +238,17 @@ class PlayerController {
     /**
      * Upload the dropped file to the Library and Enqueue if successful.
      */
-    fileDropped(file: File) {
-        alert("TODO File dropped");
+    fileDropped(files: Array<File>) {
+        var first = files[0];
+        this.$upload.upload({
+            url: '/upload',
+            method: 'POST',
+            file: first,
+            fileFormDataName: 'song'
+        }).success(function (data, status, headers) {
+            console.log(headers);
+            alert("Uploaded!");
+        });
     }
 
     /**
@@ -262,4 +272,3 @@ class PlayerController {
         alert("TODO Create Jam");
     }
 }
-

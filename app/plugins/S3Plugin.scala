@@ -45,15 +45,15 @@ class S3Plugin(application: Application) extends Plugin {
     import plugins.S3Plugin._
 
     override def onStart() {
-        implicit val region = Region.Tokyo
+        val region = Region.Tokyo
         val accessKey = application.configuration.getString(AWS_ACCESS_KEY)
         val secretKey = application.configuration.getString(AWS_SECRET_KEY)
         val bucketName = application.configuration.getString(AWS_S3_BUCKET_KEY)
 
-        S3Plugin.amazonS3 = S3(accessKey.get, secretKey.get)
+        S3Plugin.amazonS3 = S3(accessKey.get, secretKey.get).at(region)
         S3Plugin.bucketName = bucketName.get
 
-        Logger.info("Using S3 Bucket: " + bucketName.get)
+        Logger.info("Using S3 Bucket: " + S3Plugin.bucket.name)
     }
 
     override def enabled: Boolean =

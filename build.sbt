@@ -16,6 +16,7 @@ libraryDependencies ++= Seq(
     "org.webjars" % "bootstrap" % "3.2.0",
     "org.webjars" % "angularjs" % "1.2.19",
     "org.webjars" % "jasmine" % "2.0.0",
+    "org.webjars" % "angular-file-upload" % "1.6.2",
     "io.github.nremond" %% "pbkdf2-scala" % "0.4",
     "com.h2database" %  "h2" % "1.3.176",
     "mysql" % "mysql-connector-java" % "5.1.21",

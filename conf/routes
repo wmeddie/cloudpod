@@ -6,7 +6,7 @@
 GET         /                     controllers.Application.index
 POST        /login                controllers.Application.login
 POST        /signup               controllers.Application.signUp
-
+POST        /upload               controllers.Application.upload
 
 # Test Routes
 GET         /tests/js             controllers.Tests.js

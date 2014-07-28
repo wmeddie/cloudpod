@@ -91,7 +91,10 @@
                     <tfoot>
                         <tr>
                             <th colspan="5">
-                                <div class="well text-center">
+                                <div
+                                    class="well text-center"
+                                    ng-file-drop="player.fileDropped($files)"
+                                    ng-file-drag-over-class="">
                                     <h3 style="color: lightgray">
                                             Drag files here to enqueue.
                                     </h3>

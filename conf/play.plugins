@@ -1,1 +1,2 @@
 10000:scalikejdbc.PlayPlugin
+20000:plugins.S3Plugin
