@@ -5,7 +5,7 @@
 # Home page
 GET         /                     controllers.Application.index
 POST        /login                controllers.Application.login
-POST        /signUp               controllers.Application.signUp
+POST        /signup               controllers.Application.signUp
 
 
 # Test Routes

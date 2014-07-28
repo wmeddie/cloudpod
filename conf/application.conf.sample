@@ -70,3 +70,10 @@ logger.play=INFO
 
 # Logger provided to your application:
 logger.application=DEBUG
+
+# S3
+# ~~~~
+aws.s3.enabled=true # Plan on having alternative backends in the future.
+aws.s3.bucket=cloudpodcdn
+aws.accesskey=changeme
+aws.secretkey=changeme

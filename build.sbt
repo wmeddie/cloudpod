@@ -20,7 +20,9 @@ libraryDependencies ++= Seq(
     "com.h2database" %  "h2" % "1.3.176",
     "mysql" % "mysql-connector-java" % "5.1.21",
     "org.scalikejdbc" %% "scalikejdbc-play-plugin" % "2.3.+",
-    "org.skinny-framework" %% "skinny-orm" % "1.1.8"
+    "org.skinny-framework" %% "skinny-orm" % "1.1.8",
+    "com.github.seratch" %% "awscala" % "0.2.+",
+    "com.mpatric" % "mp3agic" % "0.8.2"
 )
 
 initialCommands := """
@@ -30,3 +32,4 @@ import org.joda.time._
 skinny.DBSettings.initialize()
 implicit val session = AutoSession
 """
+

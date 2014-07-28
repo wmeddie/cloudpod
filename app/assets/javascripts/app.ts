@@ -179,7 +179,7 @@ class Song {
                 public artist: string,
                 public album: string,
                 public length: number,
-                public src: string) {
+                public url: string) {
     }
 }
 

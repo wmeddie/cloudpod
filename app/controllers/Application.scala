@@ -1,14 +1,12 @@
 package controllers
 
-
-import models.entities.Login
-import play.api.libs.json.{JsObject, JsError, Json, JsString}
+import models.entities.{Login, Song}
+import play.api.libs.json.{JsError, JsObject, JsString, Json}
 import play.api.mvc._
 
 object Application extends Controller {
 
     def index = Action { implicit request =>
-
         Ok(views.html.index())
     }
 
@@ -36,7 +34,7 @@ object Application extends Controller {
         )
     }
 
-    def signUp() = Action(BodyParsers.parse.json) { implicit request =>
+    def signUp = Action(BodyParsers.parse.json) { implicit request =>
         import api.LoginApi._
 
         request.body.validate[LoginRequest].fold(
@@ -49,7 +47,7 @@ object Application extends Controller {
             signUpReq => {
                 Login.create(signUpReq.email, signUpReq.password).map { user =>
                     Ok("")
-                }.getOrElse {
+                    }.getOrElse {
                     val error = JsObject(Seq(
                         "error" -> JsString("Duplicate E-mail.")
                     ))
@@ -60,5 +58,27 @@ object Application extends Controller {
                 }
             }
         )
+    }
+
+    def upload = Action(parse.multipartFormData) { implicit request =>
+        val form = request.body.asFormUrlEncoded
+
+        request.session.get("userId").map { userId =>
+            val res = for {
+                songFile <- request.body.file("song")
+                song <- Song.createFromFile(songFile.ref)
+            } yield song
+
+            res.map { song =>
+                // TODO Enqueue
+                Accepted("").withHeaders(
+                    "Location" -> song.url
+                )
+            }.getOrElse {
+                BadRequest("")
+            }
+        }.getOrElse {
+            Unauthorized("")
+        }
     }
 }
