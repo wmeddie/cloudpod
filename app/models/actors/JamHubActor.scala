@@ -1,28 +1,25 @@
 package models.actors
 
 import akka.actor._
-import models.actors.JamHubActor._
+import api.JamHubApi
 import play.api.Logger
-
-object JamHubActor {
-    case class CreateJam(name: String)
-    case class DeleteJam(name: String)
-    case class ListJams()
-    case class JoinJam(name: String, socket: ActorRef)
-    case class PartJam(name: String, socket: ActorRef)
-    case class SpectatorTerminated(jam: ActorRef, socket: ActorRef)
-}
 
 /**
  * Directory and supervisor of jam sessions.
  */
 class JamHubActor extends Actor {
+    import JamHubApi._
+
     private var jams: Map[String, ActorRef] = Map[String, ActorRef]()
     private var spectators: Map[ActorRef, List[ActorRef]] =
         Map[ActorRef, List[ActorRef]]()
 
+    private def onApiMessage(message: JamHubMessage) = {
+        case CreateJamCommand(name) => {}
+    }
+
     override def receive: Receive = {
-        case CreateJam(name) => {
+        case CreateJamCommand(name) => {
             if (!jams.contains(name)) {
                 val jam = context.system.actorOf(Props(new JamActor(name)))
                 jams += name -> jam
@@ -30,7 +27,7 @@ class JamHubActor extends Actor {
 
             sender ! jams(name)
         }
-        case DeleteJam(name) => {
+        case DeleteJamCommand(name) => {
             if (jams.contains(name)) {
                 val jam = jams(name)
 
@@ -43,10 +40,10 @@ class JamHubActor extends Actor {
                 }
             }
         }
-        case ListJams() => {
-            sender ! jams.keySet
+        case ListJamsRequest() => {
+            sender ! ListJamsResponse(jams.values.toList)
         }
-        case JoinJam(name, socket) => {
+        case JoinJamCommand(name, socket) => {
             if (jams.contains(name)) {
                 val jam = jams(name)
                 val sockets = spectators(jam)
@@ -54,7 +51,7 @@ class JamHubActor extends Actor {
                 jam ! JamActor.Join(socket)
             }
         }
-        case PartJam(name, socket) => {
+        case LeaveJamCommand(name, socket) => {
             if (jams.contains(name)) {
                 val jam = jams(name)
                 val sockets = spectators(jam)
@@ -62,10 +59,6 @@ class JamHubActor extends Actor {
                 spectators += jam -> sockets.filter(_ != socket)
                 jam ! JamActor.Part(socket)
             }
-        }
-        case SpectatorTerminated(jam, socket) => {
-            val sockets = spectators(jam)
-            spectators += jam -> sockets.filter(_ != socket)
         }
         case Terminated(actor) => {
             // TODO: Clean up Jam sockets.
